@@ -1,0 +1,33 @@
+# Cloud Manager Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core dependencies
+requests>=2.28.0
+python-dateutil>=2.8.2
+PyYAML>=6.0
+
+# Aliyun SDK (for Alibaba Cloud)
+aliyun-python-sdk-core>=2.13.36
+aliyun-python-sdk-ecs>=4.24.16
+
+# Tencent Cloud SDK
+tencentcloud-sdk-python>=3.0.952
+
+# Optional: Huawei Cloud SDK
+# huaweicloudsdkcore>=3.1.50
+# huaweicloudsdkecs>=3.1.50
+
+# For configuration
+configparser>=5.3.0
+
+# For CLI
+argparse>=1.4.0  # Included in Python stdlib, but listed for clarity
+
+# For logging
+colorlog>=6.7.0
+
+# For SSH key generation (if using paramiko)
+paramiko>=3.2.0
+
+# Note: Some SDKs might have additional dependencies.
+# Check provider documentation for latest versions.

@@ -1,0 +1,142 @@
+# Cloud Configuration for imxyz.xyz GPU Service
+# Copy this file to cloud_config.ini and fill in your actual credentials
+
+[DEFAULT]
+# Default cloud provider (aliyun, tencent, huawei)
+default_provider = aliyun
+
+# Default region/zone
+default_region = cn-hangzhou
+default_zone = cn-hangzhou-h
+
+# Default instance type (GPU optimized)
+default_instance_type = ecs.gn6i-c8g1.2xlarge
+
+# Default image (CentOS 7.9 with GPU drivers)
+default_image_id = centos_7_9_x64_20G_alibase_20230920.vhd
+
+# Network configuration
+default_security_group = sg-xxxxxxxxxxxxx
+default_vswitch_id = vsw-xxxxxxxxxxxxx
+default_vpc_id = vpc-xxxxxxxxxxxxx
+
+# Billing settings
+billing_method = PostPaid  # PostPaid or PrePaid
+period = 1  # For PrePaid: months
+auto_release_time = 24  # Auto release after X hours (for temporary instances)
+
+# Pricing markup (your profit margin)
+markup_percentage = 20  # 20% markup on cloud costs
+
+# SSH settings
+ssh_key_name = imxyz_gpu_key
+ssh_user = root  # or ecs-user, ubuntu, etc.
+
+# Customer notification
+notification_email = hello@imxyz.xyz
+discord_webhook = https://discord.com/api/webhooks/xxx
+
+[aliyun]
+# Get these from Alibaba Cloud Console: https://ram.console.aliyun.com/users
+access_key_id = YOUR_ALIYUN_ACCESS_KEY_ID
+access_key_secret = YOUR_ALIYUN_ACCESS_KEY_SECRET
+
+# Available regions (comma separated)
+regions = cn-hangzhou,cn-beijing,cn-shanghai,cn-shenzhen,ap-southeast-1
+
+# Instance type mappings for different GPU types
+instance_type.v100 = ecs.gn6i-c8g1.2xlarge
+instance_type.a100 = ecs.gn7i-c16g1.4xlarge
+instance_type.cpu = ecs.g6e.large
+
+# Image mappings
+image.centos7 = centos_7_9_x64_20G_alibase_20230920.vhd
+image.ubuntu2004 = ubuntu_20_04_x64_20G_alibase_20230920.vhd
+image.windows = windows_2019_x64_40G_alibase_20230920.vhd
+
+# Pricing per hour (USD) - update based on actual prices
+price.v100 = 3.5
+price.a100 = 8.2
+price.cpu = 0.42
+
+[tencent]
+# Get these from Tencent Cloud Console: https://console.cloud.tencent.com/cam/capi
+secret_id = YOUR_TENCENT_SECRET_ID
+secret_key = YOUR_TENCENT_SECRET_KEY
+
+# Available regions
+regions = ap-beijing,ap-shanghai,ap-guangzhou,ap-hongkong
+
+# Instance type mappings
+instance_type.v100 = GI1.8XLARGE64
+instance_type.a100 = GI2.8XLARGE64
+instance_type.cpu = S5.MEDIUM8
+
+# Image mappings
+image.centos7 = img-xxxxxxxx
+image.ubuntu2004 = img-xxxxxxxx
+image.windows = img-xxxxxxxx
+
+# Pricing per hour (USD)
+price.v100 = 4.8
+price.a100 = 9.5
+price.cpu = 0.48
+
+[huawei]
+# Optional: Huawei Cloud configuration
+# Get credentials from: https://console.huaweicloud.com/iam/
+access_key = YOUR_HUAWEI_ACCESS_KEY
+secret_key = YOUR_HUAWEI_SECRET_KEY
+
+regions = cn-east-3,cn-north-4
+
+instance_type.v100 = p3.2xlarge.8
+instance_type.a100 = p3.8xlarge.8
+
+price.v100 = 5.2
+price.a100 = 10.5
+
+[email]
+# For sending notifications to customers
+smtp_server = smtp.gmail.com
+smtp_port = 587
+smtp_username = your-email@gmail.com
+smtp_password = your-app-password
+from_address = hello@imxyz.xyz
+
+[payment]
+# Payment processing settings
+paypal_client_id = YOUR_PAYPAL_CLIENT_ID
+paypal_client_secret = YOUR_PAYPAL_CLIENT_SECRET
+stripe_api_key = sk_live_xxxxxxxx
+stripe_webhook_secret = whsec_xxxxxxxx
+
+# Currency conversion rate (USD to CNY)
+usd_to_cny_rate = 7.2
+
+[database]
+# For storing customer orders (optional)
+# You can start with a simple SQLite database
+db_type = sqlite
+db_path = data/orders.db
+
+# Or use PostgreSQL/MySQL for production
+# db_type = postgresql
+# db_host = localhost
+# db_port = 5432
+# db_name = imxyz
+# db_user = imxyz_user
+# db_password = your_password
+
+[logging]
+# Logging configuration
+log_level = INFO
+log_file = logs/cloud_manager.log
+log_format = %(asctime)s - %(name)s - %(levelname)s - %(message)s
+
+[monitoring]
+# Instance monitoring
+monitor_interval = 300  # Check instance status every 5 minutes
+alert_threshold_cpu = 90  # Alert if CPU > 90% for 10 minutes
+alert_threshold_memory = 90  # Alert if memory > 90%
+alert_email = alerts@imxyz.xyz
