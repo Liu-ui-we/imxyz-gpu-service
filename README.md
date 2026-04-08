@@ -33,13 +33,29 @@ cd scripts
 pip install -r requirements.txt
 ```
 
-### 5. Test the System
+### 5. One-Click Quick Start
+```bash
+# Run the quick start wizard (recommended for beginners)
+python quickstart.py
+
+# Or run individual setup scripts:
+# 1. Configure Formspree form
+python scripts/formspree_setup.py
+
+# 2. Configure DNS for imxyz.xyz
+python scripts/dns_config_helper.py
+
+# 3. Check deployment status
+python scripts/deployment_check.py
+```
+
+### 6. Test the System
 ```bash
 # Generate SSH key for instances
-python cloud_manager.py genkey
+python scripts/cloud_manager.py genkey
 
 # List available instances (after configuring credentials)
-python cloud_manager.py list --provider aliyun
+python scripts/cloud_manager.py list --provider aliyun
 ```
 
 ## 📋 Features
@@ -274,12 +290,99 @@ vercel
 ### Option 3: Traditional Hosting
 Upload `public/` folder to any web host (Bluehost, HostGator, etc.)
 
-## 🤝 Support & Community
+## 🤖 自动化部署脚本
 
-### Getting Help
-- **Discord**: Join our community
-- **Email**: hello@imxyz.xyz
-- **GitHub Issues**: Report bugs or request features
+### 🚀 一键快速启动
+```bash
+# 运行快速启动向导（推荐初学者）
+python quickstart.py
+```
+**功能**：引导式完成所有配置，包含：
+- 检查系统环境（Python、Git）
+- 配置Formspree订单表单
+- 设置DNS记录
+- 测试网站访问
+- 配置云服务API
+- 生成启动报告
+
+### 📡 DNS配置助手
+```bash
+# 针对不同注册商的详细DNS配置指导
+python scripts/dns_config_helper.py
+```
+**支持的注册商**：
+- Namecheap
+- GoDaddy  
+- Google Domains
+- 阿里云万网
+- 其他注册商通用指导
+
+### 📝 Formspree自动配置
+```bash
+# 自动化Formspree注册和表单配置
+python scripts/formspree_setup.py
+```
+**功能**：
+- 打开Formspree注册页面
+- 指导创建“GPU Instance Request”表单
+- 自动更新网站代码中的表单ID
+- 保存配置记录
+
+### 🔍 部署状态检查
+```bash
+# 检查所有配置项的完成状态
+python scripts/deployment_check.py
+```
+**检查的项目**：
+- GitHub Pages 可访问性
+- 项目结构完整性
+- Formspree 表单配置
+- DNS 记录配置
+- 云服务 API 配置
+- 生成详细部署报告
+
+### ☁️ 云实例管理（核心功能）
+```bash
+# 生成SSH密钥
+python scripts/cloud_manager.py genkey
+
+# 创建GPU实例
+python scripts/cloud_manager.py create --name "客户项目" --type "V100" --hours 24
+
+# 列出所有实例
+python scripts/cloud_manager.py list --provider aliyun
+
+# 删除实例
+python scripts/cloud_manager.py delete [实例ID]
+
+# 成本估算
+python scripts/cloud_manager.py estimate --provider aliyun --type V100 --hours 100
+```
+
+### 🧪 测试你的配置
+```bash
+# 1. 运行完整部署检查
+python scripts/deployment_check.py
+
+# 2. 测试Formspree表单
+curl -X POST https://formspree.io/f/YOUR_FORM_ID \
+  -d "name=Test&email=test@example.com&useCase=AI_Training"
+
+# 3. 测试网站访问
+curl -I https://imxyz.xyz
+```
+
+## 🤝 获取支持
+
+### 遇到问题？
+1. **检查部署报告**：`python scripts/deployment_check.py`
+2. **查看详细文档**：`docs/DEPLOYMENT.md`
+3. **运行快速启动**：`python quickstart.py`
+
+### 社区支持
+- **Discord**: 加入我们的技术社区
+- **GitHub Issues**: 报告问题或请求功能
+- **Email**: hello@imxyz.xyz (业务咨询)
 
 ### Contributing
 1. Fork the repository
